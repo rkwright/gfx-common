@@ -80,10 +80,6 @@ GFX.Scene.prototype = {
 
 		this.addFog();
 		
-		//this.scene.fog = new THREE.Fog( 0xffffff,  0.015, 100 );
-		//this.scene.fog = this.scene.fog = new THREE.FogExp2( 0xffffff, 0.15 );
-			 
-
 		// Get the size of the inner window (content area)
 		var canvasWidth = window.innerWidth;
 		var canvasHeight = window.innerHeight;
