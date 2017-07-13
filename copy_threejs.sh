@@ -1,0 +1,107 @@
+#!/bin/sh
+#---------------------------------------------------
+# This script copies the libs and utils used by 
+# geofx to the specified folder, where it creates 
+# the folder 'threejs'
+# @rkwright, July 2017
+#---------------------------------------------------
+
+red='\033[1;31m'
+green='\033[0;32m'
+NC='\033[00m' # no color
+
+function echo_pwd {
+    printf "${green}"
+    pwd
+    printf "${NC}"
+}
+
+function printg {
+    printf "${green}"
+    printf %s "$1"
+    printf "${NC}\n"
+}
+
+function printr {
+    printf "${red}"
+    printf %s "$1"
+    printf "${NC}\n"
+}
+#---------------------------------------------------
+
+THREEJS_SRC='/Users/rkwright/Documents/github/three.js'
+THREEJS_STATS='/Users/rkwright/Documents/github/stats.js'
+
+# make sure the supplied a targeet folder
+if [ $# -eq 0 ]
+  then
+    printr "No target folder supplied!  Exiting..."
+    printr "Usage: copy_threejs.sh <folder>"
+    exit 1
+fi
+
+# save the argument - the target folder name
+TARGET=$1
+THREEJS_DEST="$TARGET/three-js"
+THREEJS_DEST_POST="$THREEJS_DEST/postprocess"
+THREEJS_DEST_SHADERS="$THREEJS_DEST/shaders"
+THREEJS_DEST_LOADERS="$THREEJS_DEST/loaders"
+
+if [ ! -d "$TARGET" ]; then
+    printr "Target folder $TARGET doesn't exist!  Exiting..."
+    exit 1
+fi
+
+if [ ! -d "$THREEJS_DEST" ]; then
+    printg "Creating folder threejs in target folder $TARGET"
+    mkdir $THREEJS_DEST
+fi
+
+printg "Copying files from $THREEJS_SRC to $THREEJS_DEST"
+
+cp "$THREEJS_SRC/build/three.js" $THREEJS_DEST
+cp "$THREEJS_SRC/build/three.min.js" $THREEJS_DEST
+
+cp "$THREEJS_STATS/build/stats.js" $THREEJS_DEST
+cp "$THREEJS_STATS/build/stats.min.js" $THREEJS_DEST
+
+cp "$THREEJS_SRC/examples/js/Mirror.js" $THREEJS_DEST
+
+if [ ! -d "$THREEJS_DEST_POST" ]; then
+    mkdir "$THREEJS_DEST_POST"
+fi
+
+cp "$THREEJS_SRC/examples/js/postprocessing/ClearPass.js" $THREEJS_DEST_POST
+cp "$THREEJS_SRC/examples/js/postprocessing/EffectComposer.js" $THREEJS_DEST_POST
+cp "$THREEJS_SRC/examples/js/postprocessing/MaskPass.js" $THREEJS_DEST_POST
+cp "$THREEJS_SRC/examples/js/postprocessing/RenderPass.js" $THREEJS_DEST_POST
+cp "$THREEJS_SRC/examples/js/postprocessing/ShaderPass.js" $THREEJS_DEST_POST
+cp "$THREEJS_SRC/examples/js/postprocessing/TexturePass.js" $THREEJS_DEST_POST
+
+if [ ! -d "$THREEJS_DEST_SHADERS" ]; then
+    mkdir "$THREEJS_DEST_SHADERS"
+fi
+
+cp "$THREEJS_SRC/examples/js/shaders/CopyShader.js" $THREEJS_DEST_SHADERS
+cp "$THREEJS_SRC/examples/js/shaders/HorizontalBlurShader.js" $THREEJS_DEST_SHADERS
+cp "$THREEJS_SRC/examples/js/shaders/VerticalBlurShader.js" $THREEJS_DEST_SHADERS
+
+if [ ! -d "$THREEJS_DEST_LOADERS" ]; then
+    mkdir "$THREEJS_DEST_LOADERS"
+fi
+
+cp "$THREEJS_SRC/examples/js/loaders/AWDLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/BabylonLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/ColladaLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/DDSLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/OBJLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/PDBLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/PLYLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/AWDLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/PVRLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/STLLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/VRMLLoader.js" $THREEJS_DEST_LOADERS
+cp "$THREEJS_SRC/examples/js/loaders/VTKLoader.js" $THREEJS_DEST_LOADERS
+
+printg "Copying complete"
+ls -lR $THREEJS_DEST
