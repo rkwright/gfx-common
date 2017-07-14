@@ -65,6 +65,7 @@ cp "$THREEJS_SRC/build/three.min.js" $THREEJS_DEST
 cp "$THREEJS_STATS/build/stats.js" $THREEJS_DEST
 cp "$THREEJS_STATS/build/stats.min.js" $THREEJS_DEST
 
+cp "$THREEJS_SRC/examples/js/Detector.js" $THREEJS_DEST
 cp "$THREEJS_SRC/examples/js/Mirror.js" $THREEJS_DEST
 
 if [ ! -d "$THREEJS_DEST_POST" ]; then
