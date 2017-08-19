@@ -46,6 +46,9 @@ THREEJS_DEST="$TARGET/three-js"
 THREEJS_DEST_POST="$THREEJS_DEST/postprocess"
 THREEJS_DEST_SHADERS="$THREEJS_DEST/shaders"
 THREEJS_DEST_LOADERS="$THREEJS_DEST/loaders"
+THREEJS_DEST_LIBS="$THREEJS_DEST/libs"
+
+STEMKOSKI_SRC="/Users/rkwright/Documents/github/stemkoski.github.com/Three.js" 
 
 if [ ! -d "$TARGET" ]; then
     printr "Target folder $TARGET doesn't exist!  Exiting..."
@@ -61,12 +64,12 @@ printg "Copying files from $THREEJS_SRC to $THREEJS_DEST"
 
 cp "$THREEJS_SRC/build/three.js" $THREEJS_DEST
 cp "$THREEJS_SRC/build/three.min.js" $THREEJS_DEST
-
 cp "$THREEJS_STATS/build/stats.js" $THREEJS_DEST
 cp "$THREEJS_STATS/build/stats.min.js" $THREEJS_DEST
-
 cp "$THREEJS_SRC/examples/js/Detector.js" $THREEJS_DEST
-cp "$THREEJS_SRC/examples/js/Mirror.js" $THREEJS_DEST
+
+
+printg "Copying post-processing files from $THREEJS_SRC to $THREEJS_DEST_POST"
 
 if [ ! -d "$THREEJS_DEST_POST" ]; then
     mkdir "$THREEJS_DEST_POST"
@@ -79,6 +82,8 @@ cp "$THREEJS_SRC/examples/js/postprocessing/RenderPass.js" $THREEJS_DEST_POST
 cp "$THREEJS_SRC/examples/js/postprocessing/ShaderPass.js" $THREEJS_DEST_POST
 cp "$THREEJS_SRC/examples/js/postprocessing/TexturePass.js" $THREEJS_DEST_POST
 
+printg "Copying shader files from $THREEJS_SRC to $THREEJS_DEST_SHADERS"
+
 if [ ! -d "$THREEJS_DEST_SHADERS" ]; then
     mkdir "$THREEJS_DEST_SHADERS"
 fi
@@ -86,6 +91,9 @@ fi
 cp "$THREEJS_SRC/examples/js/shaders/CopyShader.js" $THREEJS_DEST_SHADERS
 cp "$THREEJS_SRC/examples/js/shaders/HorizontalBlurShader.js" $THREEJS_DEST_SHADERS
 cp "$THREEJS_SRC/examples/js/shaders/VerticalBlurShader.js" $THREEJS_DEST_SHADERS
+cp "$STEMKOSKI_SRC/js/shaders/AdditiveBlendShader.js" $THREEJS_DEST_SHADERS
+
+printg "Copying loader files from $THREEJS_SRC to $THREEJS_DEST_LOADERS"
 
 if [ ! -d "$THREEJS_DEST_LOADERS" ]; then
     mkdir "$THREEJS_DEST_LOADERS"
@@ -103,6 +111,18 @@ cp "$THREEJS_SRC/examples/js/loaders/PVRLoader.js" $THREEJS_DEST_LOADERS
 cp "$THREEJS_SRC/examples/js/loaders/STLLoader.js" $THREEJS_DEST_LOADERS
 cp "$THREEJS_SRC/examples/js/loaders/VRMLLoader.js" $THREEJS_DEST_LOADERS
 cp "$THREEJS_SRC/examples/js/loaders/VTKLoader.js" $THREEJS_DEST_LOADERS
+
+printg "Copying libs files from $THREEJS_SRC to $THREEJS_DEST_LIBS"
+
+if [ ! -d "$THREEJS_DEST_LIBS" ]; then
+    mkdir "$THREEJS_DEST_LIBS"
+fi
+
+cp "$THREEJS_SRC/examples/js/Mirror.js" $THREEJS_DEST_LIBS
+cp "$THREEJS_SRC/examples/js/curves/NURBSCurve.js" $THREEJS_DEST_LIBS
+cp "$THREEJS_SRC/examples/js/curves/NURBSSurface.js" $THREEJS_DEST_LIBS
+cp "$THREEJS_SRC/examples/js/curves/NURBSUtils.js" $THREEJS_DEST_LIBS
+cp "$THREEJS_SRC/examples/js/geometries/TeapotBufferGeometry.js" $THREEJS_DEST_LIBS
 
 printg "Copying complete"
 ls -lR $THREEJS_DEST
