@@ -2,7 +2,7 @@
  *  @author rkwright   /  http://www.geofx.com
  */
 
-var GFX = { revision: '03' };
+var GFX = { revision: '04' };
 
 //some constants
 	var    	X_AXIS = 0;
@@ -68,7 +68,9 @@ GFX.Scene = function ( parameters ) {
     this.initialize();
 };
 
-GFX.setParameters= function( object, values ) {
+// the scene's parameters from the values JSON object
+// lifted from MrDoob's implementation in three.js
+GFX.setParameters = function( object, values ) {
 
     if ( values === undefined ) return;
 
@@ -82,31 +84,28 @@ GFX.setParameters= function( object, values ) {
         }
 
         if ( key in object ) {
-            var currentValue = object[ key ];
+            var currentValue = object[key];
 
-            if ( currentValue instanceof THREE.Color ) {
-                currentValue.set( newValue );
+            if (currentValue instanceof THREE.Color) {
+                currentValue.set(newValue);
             }
-            else if ( currentValue instanceof THREE.Vector3 && newValue instanceof THREE.Vector3 ) {
-                currentValue.copy( newValue );
+            else if (currentValue instanceof THREE.Vector3 && newValue instanceof THREE.Vector3) {
+                currentValue.copy(newValue);
             }
-            else if ( key === 'overdraw' ) {
+            else if (key === 'overdraw') {
                 // ensure overdraw is backwards-compatible with legacy boolean type
-                object[ key ] = Number( newValue );
+                object[key] = Number(newValue);
             }
             else if (currentValue instanceof Array) {
-                object[ key ] = newValue.slice();
+                object[key] = newValue.slice();
             }
             else {
-                object[ key ] = newValue;
+                object[key] = newValue;
             }
-
         }
     }
 };
 
-// the scene's parameters from the values JSON object
-// lifted from MrDoob's implementation in three.js
 GFX.Scene.prototype = {
 
 	initialize: function () {
