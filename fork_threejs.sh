@@ -1,8 +1,8 @@
 #!/bin/sh
 #---------------------------------------------------
-# This script copies the libs and utils used by 
+# This forks the libs and utils used by 
 # geofx to the specified folder, where it creates 
-# the folder 'threejs'
+# the folder 'threejs' and associated subfiles
 # @rkwright, July 2017
 #---------------------------------------------------
 
@@ -27,6 +27,24 @@ function printr {
     printf %s "$1"
     printf "${NC}\n"
 }
+
+#--- now clean up the old files if any
+function cleanOldFiles {
+    printg "Clearing out old folders and files in target folder $TARGET"
+    rm -R $THREEJS_DEST
+    # rm -R $THREEJS_DEST/postprocess
+    # rm -R $THREEJS_DEST/shaders
+    # rm -R $THREEJS_DEST/loaders
+    # rm -R $THREEJS_DEST/libs
+
+    printg "Recreating the destination folders in $TARGET"
+    mkdir $THREEJS_DEST
+    mkdir $THREEJS_DEST/postprocess
+    mkdir $THREEJS_DEST/shaders
+    mkdir $THREEJS_DEST/loaders
+    mkdir $THREEJS_DEST/libs
+}
+
 #---------------------------------------------------
 
 THREEJS_SRC='/Users/rkwright/Documents/github/three.js'
@@ -50,15 +68,18 @@ THREEJS_DEST_LIBS="$THREEJS_DEST/libs"
 
 STEMKOSKI_SRC="/Users/rkwright/Documents/github/stemkoski.github.com/Three.js" 
 
+#--- now clean up the old files if any
+
+
 if [ ! -d "$TARGET" ]; then
     printr "Target folder $TARGET doesn't exist!  Exiting..."
     exit 1
 fi
 
-if [ ! -d "$THREEJS_DEST" ]; then
-    printg "Creating folder threejs in target folder $TARGET"
-    mkdir $THREEJS_DEST
-fi
+# start by deleting the old files and re-creating the folders
+cleanOldFiles;
+
+exit 0;
 
 printg "Copying files from $THREEJS_SRC to $THREEJS_DEST"
 

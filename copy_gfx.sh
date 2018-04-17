@@ -31,7 +31,7 @@ function printr {
 }
 #---------------------------------------------------
 
-GFX_SRC='/Users/rkwright/Documents/github/gfx-three-js'
+GFX_SRC='/Users/rkwright/Documents/github/gfx-common'
 
 # make sure the user supplied a targeet folder
 if [ $# -eq 0 ]
@@ -51,6 +51,7 @@ fi
 
 printg "Removing any existing files, i.e. updating"
 rm -R $TARGET/css
+rm -R $TARGET/d3-geo
 rm -R $TARGET/fonts
 rm -R $TARGET/gfx
 rm -R $TARGET/images
@@ -59,6 +60,7 @@ rm -R $TARGET/three-js
 printg "Copying files from $GFX_SRC to $TARGET"
 
 cp -r  "$GFX_SRC/css" $TARGET
+cp -r  "$GFX_SRC/d3-geo" $TARGET
 cp -r  "$GFX_SRC/fonts" $TARGET
 cp -r  "$GFX_SRC/gfx" $TARGET
 cp -r  "$GFX_SRC/images" $TARGET
