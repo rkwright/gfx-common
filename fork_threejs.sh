@@ -79,8 +79,6 @@ fi
 # start by deleting the old files and re-creating the folders
 cleanOldFiles;
 
-exit 0;
-
 printg "Copying files from $THREEJS_SRC to $THREEJS_DEST"
 
 cp "$THREEJS_SRC/build/three.js" $THREEJS_DEST
